@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProfessionalRequest;
 use App\Http\Requests\UpdateProfessionalRequest;
 use App\Models\Professional;
+use App\Models\Speciality;
 use Inertia\Inertia;
 
 class ProfessionalController extends Controller
@@ -16,11 +17,12 @@ class ProfessionalController extends Controller
      */
     public function index()
     {
-        $professionals = Professional::all();
+        $professionals = Professional::orderBy('name', 'asc')->get();
+        $specialities = Speciality::all();
 
         \Log::debug("Encontrados: ", [$professionals]);
 
-        return Inertia::render('Professionals/Index', ['professionals' => $professionals]);
+        return Inertia::render('Professionals/Index', ['professionals' => $professionals, 'specialities' => $specialities]);
     }
 
     /**
@@ -41,7 +43,9 @@ class ProfessionalController extends Controller
      */
     public function store(StoreProfessionalRequest $request)
     {
-        //
+        \Log::debug($request->all());
+
+        return response()->json($request->all());
     }
 
     /**

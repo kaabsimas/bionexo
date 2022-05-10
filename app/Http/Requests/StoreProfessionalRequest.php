@@ -24,7 +24,10 @@ class StoreProfessionalRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required',
+            'crm' => 'required',
+            'phone' => 'alpha_dash',
+            'specialities' => 'array:id'
         ];
     }
 }
