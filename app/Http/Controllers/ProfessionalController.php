@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreProfessionalRequest;
+use App\Http\Requests\UpdateProfessionalRequest;
 use App\Models\Professional;
-use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class ProfessionalController extends Controller
 {
@@ -14,16 +16,30 @@ class ProfessionalController extends Controller
      */
     public function index()
     {
-        //
+        $professionals = Professional::all();
+
+        \Log::debug("Encontrados: ", [$professionals]);
+
+        return Inertia::render('Professionals/Index', ['professionals' => $professionals]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return Inertia::render('Professionals/Create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreProfessionalRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProfessionalRequest $request)
     {
         //
     }
@@ -36,17 +52,28 @@ class ProfessionalController extends Controller
      */
     public function show(Professional $professional)
     {
-        //
+        return response()->json($professional);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Professional  $professional
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Professional $professional)
+    {
+        
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\UpdateProfessionalRequest  $request
      * @param  \App\Models\Professional  $professional
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Professional $professional)
+    public function update(UpdateProfessionalRequest $request, Professional $professional)
     {
         //
     }
