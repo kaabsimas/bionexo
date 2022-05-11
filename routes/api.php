@@ -20,8 +20,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Route::controller(ProfessionalController::class)->group(function() {
-//     // Route::get('professionals', )
-// });
+Route::middleware(['auth', 'verified'])->group(function() {
+    Route::post('/tokens/create', function (Request $request) {
+        $token = $request->user()->createToken('internal-token');
+     
+        return ['token' => $token->plainTextToken];
+    });
+});
 
-Route::get('/specialities', [SpecialityController::class, 'index'])->name('specialities.index');
+Route::middleware('auth:sanctum')->get('/specialities', [SpecialityController::class, 'index'])->name('specialities.index');

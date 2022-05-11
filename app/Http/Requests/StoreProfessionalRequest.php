@@ -27,7 +27,7 @@ class StoreProfessionalRequest extends FormRequest
             'name' => 'required',
             'crm' => 'required',
             'phone' => 'alpha_dash',
-            'specialities' => 'array:id'
+            'specialities' => 'array'
         ];
     }
 }

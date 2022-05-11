@@ -9,6 +9,8 @@ class Professional extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name', 'crm', 'phone'];
+
     public function specialities()
     {
         return $this->belongsToMany(Speciality::class);
