@@ -103,6 +103,7 @@ class ProfessionalController extends Controller
      */
     public function destroy(Professional $professional)
     {
-        //
+        $professional->delete();
+        return view('_deletedProfessional');
     }
 }
