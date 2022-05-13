@@ -1,6 +1,7 @@
 <script setup>
 import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue';
 import Button from '@/Components/Button.vue';
+import ProfessionalItem from '@/Components/ProfessionalItem.vue';
 import { Head } from '@inertiajs/inertia-vue3';
 import { watch } from '@vue/runtime-core';
 
@@ -26,9 +27,8 @@ const props = defineProps({professionals: Array});
                         <br>
                         <template v-if="professionals.length > 0 && professionals.every(i => !! i)">
                             <ul >
-                                <li v-for="professional in professionals" :key="professional.id" class="p-6 border border-gray-300">
-                                    Nome: {{  professional.name }}<br>
-                                    CRM: {{ professional.crm }}<br>
+                                <li v-for="professional in professionals" :key="professional.id" class="p-6">
+                                    <ProfessionalItem :professional="professional" />
                                 </li>
                             </ul>
                         </template>

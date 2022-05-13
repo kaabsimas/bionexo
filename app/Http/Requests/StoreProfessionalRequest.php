@@ -26,8 +26,9 @@ class StoreProfessionalRequest extends FormRequest
         return [
             'name' => 'required',
             'crm' => 'required',
-            'phone' => 'alpha_dash',
-            'specialities' => 'array'
+            'phone' => 'required',
+            'specialities' => 'required|array',
+            'specialities.*.id' => 'required'
         ];
     }
 }

@@ -3,21 +3,26 @@ import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue';
 import { Head } from '@inertiajs/inertia-vue3';
 import ProfessionalForm from '@/Components/ProfessionalForm.vue';
 import {reactive} from 'vue';
+import axios from 'axios';
+import { Inertia } from '@inertiajs/inertia'
 
-const form = reactive({});
+const state = reactive({form: {}, errors: {}});
 
 async function submit() {
-    fetch(
-        route('professional.store'), 
-        {
-            method: 'post',
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+    axios.post(route('professional.store'), await state.form)
+        .then((response) => {
+            if(response.status == 200) {
+                alert("Salvou -> " + route('professional.index'));
+                // this.$route.push(route('professional.index'));
+                Inertia.get(route('professional.index'));
             }
-        }
-    ).then(async response => {
-        console.log(await response.json());
-    });
+        })
+        .catch((error) => {
+            if(error.response && error.response.status == 422) {
+                state.errors = error.response.data.errors;
+                console.log(error.response.data.errors);
+            }
+        });
 }
 </script>
 <template>
@@ -34,7 +39,7 @@ async function submit() {
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-white border-b border-gray-200">
                         <form method="post" :action="route('professional.store')" @submit.prevent="submit">
-                            <ProfessionalForm v-model="form" />
+                            <ProfessionalForm v-model="state.form" :errors="state.errors" />
                         </form>
                     </div>
                 </div>

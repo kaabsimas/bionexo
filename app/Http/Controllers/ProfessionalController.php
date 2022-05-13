@@ -18,7 +18,7 @@ class ProfessionalController extends Controller
      */
     public function index()
     {
-        $professionals = Professional::orderBy('name', 'asc')->get();
+        $professionals = Professional::orderBy('name', 'desc')->get();
         $specialities = Speciality::all();
 
         return Inertia::render('Professionals/Index', ['professionals' => $professionals, 'specialities' => $specialities]);
@@ -42,14 +42,16 @@ class ProfessionalController extends Controller
      */
     public function store(StoreProfessionalRequest $request)
     {
+        $phone = str_replace(['(', ')', ' '], '', $request->phone);
+
         $professional = Professional::create([
             'name' => $request->name,
             'crm' => $request->crm,
-            'phone' => $request->phone
+            'phone' => $phone
         ]);
 
         foreach($request->specialities as $speciality) {
-            $model = Speciality::find($speciality);
+            $model = Speciality::find($speciality['id']);
 
             if($model) {
                 $professional->specialities()->attach($model);
