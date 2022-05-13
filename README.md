@@ -57,3 +57,6 @@ sail@user:/var/www/html$ npm run dev
 sail@user:/var/www/html$ php artisan migrate --seed
 ```
 Então acessar http://localhost
+
+## Exemplo da tela de listagem de médicos
+![Tela de Listagem de Médicos](resources/images/readme/professional_index.png)
