@@ -31,7 +31,7 @@ async function submit() {
     <BreezeAuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Novo Médico > Novo
+                Médicos > Novo
             </h2>
         </template>
         <div class="py-12">

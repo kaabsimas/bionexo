@@ -19,26 +19,26 @@ onMounted(() => {
 
 function addValue(event) {
     const select = event.target;
-    if(!state.specialities.find(i => i.id == select.value)) {
-        var aux = {id:select.value, text:select[select.selectedIndex].text};
+    if(!props.modelValue.find(i => i.id == select.value)) {
+        var aux = {id:select.value, name:select[select.selectedIndex].text};
 
-        state.specialities.push(aux);
+        props.modelValue.push(aux);
     }
 
     select.selectedIndex = 0;
-    emit('update:modelValue', state.specialities);
+    emit('update:modelValue', props.modelValue);
 }
 
 function removeValue(event) {
     const button = event.target;
     var itemToRemove = undefined,
-        currentListSet = state.specialities;
+        currentListSet = props.modelValue;
 
     if(itemToRemove = currentListSet.find(i => i.id == button.dataset.id)) {
         currentListSet.splice(currentListSet.indexOf(itemToRemove), 1);
-        state.specialities = currentListSet;
+        props.modelValue = currentListSet;
     }
-    emit('update:modelValue', state.specialities);
+    emit('update:modelValue', props.modelValue);
 }
 </script>
 
@@ -52,13 +52,13 @@ function removeValue(event) {
         </select>
         <div class="flex flex-col overflow-y-scroll w-50 h-32">
             <div 
-                v-for="speciality in state.specialities" 
+                v-for="speciality in props.modelValue" 
                 :key="speciality.id" 
                 :data-id="speciality.id"
                 class="p-2 border-gray-200 cursor-pointer hover:bg-red-300"
                 @click="removeValue"
             >
-                {{speciality.text}} 
+                {{speciality.name}} 
             </div>
         </div>
     </div>

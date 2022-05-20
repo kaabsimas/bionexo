@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateProfessionalRequest extends FormRequest
@@ -24,7 +25,11 @@ class UpdateProfessionalRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required',
+            'crm' => 'required',
+            'phone' => 'required',
+            'specialities' => 'array',
+            'specialities.*.id' => Rule::requiredIf(!!$this->specialities)
         ];
     }
 }

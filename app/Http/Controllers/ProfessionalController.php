@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateProfessionalRequest;
 use App\Models\Professional;
 use App\Models\Speciality;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class ProfessionalController extends Controller
@@ -80,7 +81,8 @@ class ProfessionalController extends Controller
      */
     public function edit(Professional $professional)
     {
-        
+        $professional->load('specialities');
+        return Inertia::render('Professionals/Edit', compact('professional'));
     }
 
     /**
@@ -92,7 +94,9 @@ class ProfessionalController extends Controller
      */
     public function update(UpdateProfessionalRequest $request, Professional $professional)
     {
-        //
+    
+        return "<h1>Tamo quase lá</h1><p>Quenta só mais um pouco</p>" . dump($professional);
+        // return Redirect::route('professional.index');
     }
 
     /**
